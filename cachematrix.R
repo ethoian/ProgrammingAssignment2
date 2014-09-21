@@ -19,9 +19,11 @@
 ##    d) otherwise calculate the inverse matrix and put it into m
 ##    e) Return m
 ## 3- An simple test (non exhaustive):
-##    a) testmat<-matrix(data=c(1,0,5,2,1,6,3,4,0), nrow = 3,ncol= 3) or matrix(data = c(4,2,7,6), nrow = 2, ncol = 2)
-##    b) testmat2 <- makeCacheMatrix(testmat)
-##    c) cacheSolve(testmat2)
+##    a) testmat1<-matrix(data=c(1,0,5,2,1,6,3,4,0), nrow = 3,ncol= 3)
+##    b) testmat2<-matrix(data = c(4,2,7,6), nrow = 2, ncol = 2)
+##    c) mat1 <- makeCacheMatrix(testmat1)
+##    d) cacheSolve(mat1) this should return the inverse of matrix testmat1
+##    e) cacheSolve(mat2) this should return the inverst of matrix testmat2
 
 ## Write a short comment describing this function
 ## 1- The first function, makeCacheMatrix creates a special "matrix" object that can cache the input matrix and its inverse:
@@ -38,7 +40,6 @@ makeCacheMatrix <- function(x = matrix()) {
                    getinverse <- function() m
                    list(set=set, get=get, setinverse=setinverse,getinverse=getinverse)  # create a list to hold the 4 sub functions     
                    
-
 }
 
 
@@ -51,10 +52,9 @@ cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
                  m <- x$getinverse()        # Test if an inverse has been already calculated
                  if (!is.null(m)){          # Test if cacheSolve has been performed
-                    if (x$setinverse()== x$getinverse()){
                     message ("getting cached data")
                     return (m)		  # Return m in cache
-                    }
+                 
                   }
                   matrix <- x$get()         # run the get function to get the value of the input matrix
                   x$set(matrix)             # run the set function to cache the value of the matrix
@@ -62,4 +62,5 @@ cacheSolve <- function(x, ...) {
                   x$setinverse(m)           # run the setinverse function to cache the inverse
                   m                         # return the inverse
 
+ 
 }
